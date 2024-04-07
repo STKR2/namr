@@ -4,6 +4,7 @@ import config
 from AarohiX import YouTube, app
 from AarohiX.core.call import Dil
 from AarohiX.misc import db
+from pyrogram.errors import UserNotParticipant
 from strings.filters import command
 from AarohiX.utils.database import get_loop
 from AarohiX.utils.decorators import AdminRightsCheck

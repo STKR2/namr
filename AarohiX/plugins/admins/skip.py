@@ -11,6 +11,7 @@ from AarohiX.utils.inline import close_markup, stream_markup
 from AarohiX.utils.stream.autoclear import auto_clean
 from AarohiX.utils.thumbnails import get_thumb
 from pyrogram.errors import UserNotParticipant, ChatWriteForbidden
+from config import Muntazer
 
 async def is_user_subscribed(chat_id, user_id):
     try:

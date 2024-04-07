@@ -1,7 +1,7 @@
 from pyrogram import filters 
 from pyrogram.types import Message 
 from strings.filters import command 
-from AnonXMusic import app 
+from AarohiX import app 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton 
 from config import Muntazer 
 from pyrogram.errors import ChatAdminRequired, UserNotParticipant, ChatWriteForbidden 

@@ -10,6 +10,7 @@ from AarohiX.utils.decorators import AdminRightsCheck
 from AarohiX.utils.inline import close_markup, stream_markup
 from AarohiX.utils.stream.autoclear import auto_clean
 from AarohiX.utils.thumbnails import get_thumb
+from config import Muntazer, BANNED_USERS
 
 async def get_channel_title(client, channel_id):
     try:

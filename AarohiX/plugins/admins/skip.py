@@ -3,17 +3,17 @@ from pyrogram.types import InlineKeyboardMarkup, Message, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminRequired
 
 import config
-from AnonXMusic import YouTube, app
-from AnonXMusic.core.call import Anony
-from AnonXMusic.misc import db
+from AarohiX import YouTube, app
+from AarohiX.core.call import Anony
+from AarohiX.misc import db
 from strings.filters import command
 from pyrogram.errors import ChatWriteForbidden
 from config import BANNED_USERS
-from AnonXMusic.utils.database import get_loop
-from AnonXMusic.utils.decorators import AdminRightsCheck
-from AnonXMusic.utils.inline import close_markup, stream_markup
-from AnonXMusic.utils.stream.autoclear import auto_clean
-from AnonXMusic.utils.thumbnails import get_thumb
+from AarohiX.utils.database import get_loop
+from AarohiX.utils.decorators import AdminRightsCheck
+from AarohiX.utils.inline import close_markup, stream_markup
+from AarohiX.utils.stream.autoclear import auto_clean
+from AarohiX.utils.thumbnails import get_thumb
 from config import Muntazer
 
 async def get_channel_title(client, channel_id):
@@ -104,7 +104,7 @@ async def skip(cli, message: Message, _, chat_id):
                                         ),
                                         reply_markup=close_markup(_),
                                     )
-                                    await Anony.stop_stream(chat_id)
+                                    await Dil.stop_stream(chat_id)
                                 except:
                                     return
                                 break

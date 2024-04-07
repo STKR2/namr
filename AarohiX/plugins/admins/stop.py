@@ -10,27 +10,19 @@ from AarohiX.utils.decorators import AdminRightsCheck
 from AarohiX.utils.inline import close_markup 
 from config import Muntazer 
 
-async def get_channel_title(client, channel_id):
-    try:
-        chat_info = await client.get_chat(channel_id)
-        return chat_info.title
-    except Exception as e:
-        print("Error:", e)
-        return None
 
-@app.on_message(filters.incoming & filters.private, group=-1)
 async def must_join_channel(cli, msg: Message):
-    if not Muntazer:
+    if not muntazer:
         return
     try:
         try:
-            await cli.get_chat_member(Muntazer, msg.from_user.id)
+            await cli.get_chat_member(muntazer, msg.from_user.id)
         except UserNotParticipant:
-            if Muntazer.isalpha():
-                link = "https://t.me/" + Muntazer
+            if muntazer.isalpha():
+                link = "https://t.me/" + muntazer
             else:
-                link = Muntazer_invite_link 
-            channel_title = await get_channel_title(cli, Muntazer)
+                link = muntazer_invite_link  # تم استدعاء الرابط من ملف الـ config.py
+            channel_title = await get_channel_title(cli, muntazer)
             if channel_title:
                 await msg.reply(
                     f"\n<b>عذرا عزيزي ↜ {msg.from_user.mention}</b>\nلا تستطيع استخدام الامر انت لم تشترك في قناه البوت",
@@ -41,7 +33,7 @@ async def must_join_channel(cli, msg: Message):
                 )
                 await msg.stop_propagation()
     except ChatAdminRequired:
-        print(f"I'm not admin in the MUST_JOIN chat {Muntazer}!")
+        print(f"I'm not admin in the MUST_JOIN chat {muntazer}!")
 
 # الكود لإيقاف الموسيقى 
 @app.on_message(command(["ايقاف", "اوكف", "كافي", "انهاء"]) ) 

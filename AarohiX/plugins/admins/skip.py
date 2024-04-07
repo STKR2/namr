@@ -6,6 +6,7 @@ import config
 from AarohiX import YouTube, app 
 from AarohiX.core.call import Dil
 from AarohiX.misc import db 
+from strings.filters import command
 from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminRequired
 from pyrogram.errors import ChatWriteForbidden 
 from config import BANNED_USERS 
@@ -45,7 +46,7 @@ async def must_join_channel(cli, msg: Message):
  
  
 @app.on_message( 
-    filters.command(["سكب", "التالي", "تخطي", "cnext"]) & filters.group & ~BANNED_USERS 
+    command(["سكب", "التالي", "تخطي", "cnext"]) & filters.group & ~BANNED_USERS 
 ) 
 @AdminRightsCheck 
 async def skip(cli, message: Message, _, chat_id): 

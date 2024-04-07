@@ -4,7 +4,7 @@ from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminReq
  
 import config 
 from AarohiX import YouTube, app 
-from AarohiX.core.call import Anony 
+from AarohiX.core.call import Dil
 from AarohiX.misc import db 
 from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminRequired
 from pyrogram.errors import ChatWriteForbidden 

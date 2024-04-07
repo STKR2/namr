@@ -14,25 +14,13 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.errors import ChatAdminRequired, UserNotParticipant, ChatWriteForbidden
 from AarohiX import app
-from config import Muntazer, subscribed_users
-
-# دالة تفحص الاشتراك في القناة
-async def check_subscription(user_id):
-    if Muntazer:
-        try:
-            await app.get_chat_member(Muntazer, user_id)
-            return True
-        except UserNotParticipant:
-            return False
-    return False
+from config import Muntazer
 
 # دالة الاشتراك بالقناة
 async def subscribe_channel(user_id):
     if Muntazer:
         try:
             await app.get_chat_member(Muntazer, user_id)
-            if user_id not in subscribed_users:
-                subscribed_users.append(user_id)
         except UserNotParticipant:
             pass
 
@@ -42,26 +30,26 @@ async def must_join_channel(app: Client, msg: Message):
         return
     try:
         user_id = msg.from_user.id
-        if user_id not in subscribed_users:
-            subscribed = await check_subscription(user_id)
-            if not subscribed:
-                try:
-                    if Muntazer.isalpha():
-                        link = "https://t.me/" + Muntazer
-                    else:
-                        chat_info = await app.get_chat(Muntazer)
-                        link = chat_info.invite_link
-                    await msg.reply(
-                        f"~︙عزيزي {msg.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.",
-                        disable_web_page_preview=True,
-                        reply_markup=InlineKeyboardMarkup([
-                            [InlineKeyboardButton("< Source Plus >", url=link)]
-                        ])
-                    )
-                    await subscribe_channel(user_id)  # تفعيل الاشتراك بالقناة
-                    await msg.stop_propagation()
-                except ChatWriteForbidden:
-                    pass
+        await subscribe_channel(user_id)
+        try:
+            await app.get_chat_member(Muntazer, user_id)
+        except UserNotParticipant:
+            try:
+                if Muntazer.isalpha():
+                    link = "https://t.me/" + Muntazer
+                else:
+                    chat_info = await app.get_chat(Muntazer)
+                    link = chat_info.invite_link
+                await msg.reply(
+                    f"~︙عزيزي {msg.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.",
+                    disable_web_page_preview=True,
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("< Source Plus >", url=link)]
+                    ])
+                )
+                await msg.stop_propagation()
+            except ChatWriteForbidden:
+                pass
     except ChatAdminRequired:
         print(f"I'm not admin in the MUST_JOIN chat {Muntazer}!")
 
@@ -71,7 +59,9 @@ async def must_join_channel(app: Client, msg: Message):
 @AdminRightsCheck
 async def skip(cli, message: Message, _, chat_id):
     user_id = message.from_user.id
-    if user_id not in subscribed_users:
+    try:
+        await app.get_chat_member(Muntazer, user_id)
+    except UserNotParticipant:
         # إرسال رسالة تطلب الاشتراك
         return
     if not len(message.command) < 2:

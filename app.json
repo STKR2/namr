@@ -1,5 +1,5 @@
 {
-    "name": "احدث نسخة من سورس فريدوم!!",
+    "name": "Source Plus !!",
     "description": " يمكنك تشغيل الملفات الصوتية في مباشرتا في القنوات والمجموعات .",
     "logo": "https://te.legra.ph/file/4807752a011965b771900.jpg",
     "keywords": [
@@ -34,7 +34,7 @@
       },
       "OWNER_ID": {
         "description": "~ اكتب ايدي المالك او اتركها كما هي .",
-        "value": "1854384004",
+        "value": "798912491",
         "required": true
         
       },
@@ -46,13 +46,13 @@
       },
       "SUPPORT_CHAT": {
         "description": "~  ضع قناة الدعم .",
-        "value": "https://t.me/vvyvv6",
+        "value": "https://t.me/BB_1R",
         "required": true
         
       },
       "Muntazer": {
         "description": "~  ضع قناة الاشتراك الاجباري ( لاتنسى رفع البوت مشرف في القناة ) .",
-        "value": "xl444",
+        "value": "BB_1R",
         "required": true
         
       },
@@ -98,7 +98,7 @@
       },
       "UPSTREAM_REPO": {
         "description": "~  لاتغيرها أبدا .",
-        "value": "https://github.com/STKR2/RR8R9",
+        "value": "https://github.com/STKR2/namrk",
         "required": true
       }
     },

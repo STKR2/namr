@@ -54,7 +54,7 @@ async def must_join_channel(app: Client, msg: Message):
         print(f"I'm not admin in the MUST_JOIN chat {Muntazer}!")
 
 @app.on_message(
-    filters.command(["سكب", "تخطي", "التالي", "الي بعدة"]) 
+    command(["سكب", "تخطي", "التالي", "الي بعدة"]) 
 )
 @AdminRightsCheck
 async def skip(cli, message: Message, _, chat_id):

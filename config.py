@@ -6,6 +6,7 @@ from pyrogram import filters
 
 load_dotenv()
 
+subscribed_users = []
 
 API_ID = int(getenv("API_ID", ""))
 

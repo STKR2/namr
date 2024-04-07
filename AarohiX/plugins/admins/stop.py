@@ -2,6 +2,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 from strings.filters import command
 from AarohiX import app
+from pyrogram.errors import UserNotParticipant
 from pyrogram.errors import ChatAdminRequired
 from AarohiX.core.call import Dil
 from AarohiX.utils.database import set_loop

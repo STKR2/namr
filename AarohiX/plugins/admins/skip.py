@@ -1,18 +1,20 @@
 from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup, Message
+from pyrogram.types import InlineKeyboardMarkup, Message, InlineKeyboardButton
+from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminRequired
+
 import config
-from AarohiX import YouTube, app
-from AarohiX.core.call import Dil
-from AarohiX.misc import db
+from AnonXMusic import YouTube, app
+from AnonXMusic.core.call import Anony
+from AnonXMusic.misc import db
 from strings.filters import command
-from AarohiX.utils.database import get_loop
-from AarohiX.utils.decorators import AdminRightsCheck
-from AarohiX.utils.inline import close_markup, stream_markup
-from AarohiX.utils.stream.autoclear import auto_clean
-from AarohiX.utils.thumbnails import get_thumb
-from config import Muntazer, BANNED_USERS
 from pyrogram.errors import ChatWriteForbidden
-from pyrogram.errors import UserNotParticipant
+from config import BANNED_USERS
+from AnonXMusic.utils.database import get_loop
+from AnonXMusic.utils.decorators import AdminRightsCheck
+from AnonXMusic.utils.inline import close_markup, stream_markup
+from AnonXMusic.utils.stream.autoclear import auto_clean
+from AnonXMusic.utils.thumbnails import get_thumb
+from config import Muntazer
 
 async def get_channel_title(client, channel_id):
     try:
@@ -48,7 +50,8 @@ async def must_join_channel(cli, msg: Message):
         print(f"I'm not admin in the MUST_JOIN chat {Muntazer}!")
 
 @app.on_message(
-    command(["skip", "تخطي", "سكب", "cnext"]))
+    command(["سكب", "تخطي", "التالي", "الي بعدة"]) & filters.group & ~BANNED_USERS
+)
 @AdminRightsCheck
 async def skip(cli, message: Message, _, chat_id):
     if not Muntazer:
@@ -101,7 +104,7 @@ async def skip(cli, message: Message, _, chat_id):
                                         ),
                                         reply_markup=close_markup(_),
                                     )
-                                    await Dil.stop_stream(chat_id)
+                                    await Anony.stop_stream(chat_id)
                                 except:
                                     return
                                 break
@@ -128,7 +131,7 @@ async def skip(cli, message: Message, _, chat_id):
                     reply_markup=close_markup(_),
                 )
                 try:
-                    return await Dil.stop_stream(chat_id)
+                    return await Anony.stop_stream(chat_id)
                 except:
                     return
         except:
@@ -139,22 +142,23 @@ async def skip(cli, message: Message, _, chat_id):
                     ),
                     reply_markup=close_markup(_),
                 )
-                return await Dil.stop_stream(chat_id)
+                return await Anony.stop_stream(chat_id)
             except:
                 return
-    queued = check[0]["file"]
-    title = (check[0]["title"]).title()
-    user = check[0]["by"]
-    streamtype = check[0]["streamtype"]
-    videoid = check[0]["vidid"]
-    status = True if str(streamtype) == "video" else None
-    db[chat_id][0]["played"] = 0
-    exis = (check[0]).get("old_dur")
-    if exis:
-        db[chat_id][0]["dur"] = exis
-        db[chat_id][0]["seconds"] = check[0]["old_second"]
-        db[chat_id][0]["speed_path"] = None
-        db[chat_id][0]["speed"] = 1.0
+
+        queued = check[0]["file"]
+        title = (check[0]["title"]).title()
+        user = check[0]["by"]
+        streamtype = check[0]["streamtype"]
+        videoid = check[0]["vidid"]
+        status = True if str(streamtype) == "video" else None
+        db[chat_id][0]["played"] = 0
+        exis = (check[0]).get("old_dur")
+        if exis:
+            db[chat_id][0]["dur"] = exis
+            db[chat_id][0]["seconds"] = check[0]["old_second"]
+            db[chat_id][0]["speed_path"] = None
+            db[chat_id][0]["speed"] = 1.0:
     if "live_" in queued:
         n, link = await YouTube.video(videoid, True)
         if n == 0:

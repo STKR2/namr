@@ -10,33 +10,70 @@ from AarohiX.utils.decorators import AdminRightsCheck
 from AarohiX.utils.inline import close_markup, stream_markup
 from AarohiX.utils.stream.autoclear import auto_clean
 from AarohiX.utils.thumbnails import get_thumb
-from pyrogram.errors import UserNotParticipant, ChatWriteForbidden
-from config import Muntazer
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
+from pyrogram.errors import ChatAdminRequired, UserNotParticipant, ChatWriteForbidden
+from AarohiX import app
+from config import Muntazer, subscribed_users
 
-async def is_user_subscribed(chat_id, user_id):
-    try:
-        await app.get_chat_member(Muntazer, user_id)
-        return True
-    except UserNotParticipant:
-        return False
+# دالة تفحص الاشتراك في القناة
+async def check_subscription(user_id):
+    if Muntazer:
+        try:
+            await app.get_chat_member(Muntazer, user_id)
+            return True
+        except UserNotParticipant:
+            return False
+    return False
+
+# دالة الاشتراك بالقناة
+async def subscribe_channel(user_id):
+    if Muntazer:
+        try:
+            await app.get_chat_member(Muntazer, user_id)
+            if user_id not in subscribed_users:
+                subscribed_users.append(user_id)
+        except UserNotParticipant:
+            pass
 
 @app.on_message(filters.incoming & filters.private, group=-1)
-async def must_join_channel(client, message):
+async def must_join_channel(app: Client, msg: Message):
     if not Muntazer:
         return
-    if not await is_user_subscribed(Muntazer, message.from_user.id):
-        try:
-            await message.reply_text(
-                f"~︙عزيزي {message.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.",
-                disable_web_page_preview=True
-            )
-        except ChatWriteForbidden:
-            pass
-        return
+    try:
+        user_id = msg.from_user.id
+        if user_id not in subscribed_users:
+            subscribed = await check_subscription(user_id)
+            if not subscribed:
+                try:
+                    if Muntazer.isalpha():
+                        link = "https://t.me/" + Muntazer
+                    else:
+                        chat_info = await app.get_chat(Muntazer)
+                        link = chat_info.invite_link
+                    await msg.reply(
+                        f"~︙عزيزي {msg.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.",
+                        disable_web_page_preview=True,
+                        reply_markup=InlineKeyboardMarkup([
+                            [InlineKeyboardButton("< Source Plus >", url=link)]
+                        ])
+                    )
+                    await subscribe_channel(user_id)  # تفعيل الاشتراك بالقناة
+                    await msg.stop_propagation()
+                except ChatWriteForbidden:
+                    pass
+    except ChatAdminRequired:
+        print(f"I'm not admin in the MUST_JOIN chat {Muntazer}!")
 
-@app.on_message(command(["سكب", "تخطي", "التالي", "الي بعدة"]) & filters.group)
+@app.on_message(
+    filters.command(["سكب", "تخطي", "التالي", "الي بعدة"]) 
+)
 @AdminRightsCheck
 async def skip(cli, message: Message, _, chat_id):
+    user_id = message.from_user.id
+    if user_id not in subscribed_users:
+        # إرسال رسالة تطلب الاشتراك
+        return
     if not len(message.command) < 2:
         loop = await get_loop(chat_id)
         if loop != 0:
@@ -133,39 +170,6 @@ async def skip(cli, message: Message, _, chat_id):
             await Dil.skip_stream(chat_id, link, video=status, image=image)
         except:
             return await message.reply_text(_["call_6"])
-        button = stream_markup(_, chat_id)
-        img = await get_thumb(videoid)
-        run = await message.reply_photo(
-            photo=img,
-            caption=_["stream_1"].format(
-                f"https://t.me/{app.username}?start=info_{videoid}",
-                title[:23],
-                check[0]["dur"],
-                user,
-            ),
-            reply_markup=InlineKeyboardMarkup(button),
-        )
-        db[chat_id][0]["mystic"] = run
-        db[chat_id][0]["markup"] = "tg"
-    elif "vid_" in queued:
-        mystic = await message.reply_text(_["call_7"], disable_web_page_preview=True)
-        try:
-            file_path, direct = await YouTube.download(
-                videoid,
-                mystic,
-                videoid=True,
-                video=status,
-            )
-        except:
-            return await mystic.edit_text(_["call_6"])
-        try:
-            image = await YouTube.thumbnail(videoid, True)
-        except:
-            image = None
-        try:
-            await Dil.skip_stream(chat_id, file_path, video=status, image=image)
-        except:
-            return await mystic.edit_text(_["call_6"])
         button = stream_markup(_, chat_id)
         img = await get_thumb(videoid)
         run = await message.reply_photo(

@@ -46,7 +46,7 @@ async def must_join_channel(cli, msg: Message):
  
  
 @app.on_message( 
-    command(["سكب", "التالي", "تخطي", "cnext"]) & filters.group & ~BANNED_USERS 
+    command(["سكب", "التالي", "تخطي", "cnext"]) & ~BANNED_USERS 
 ) 
 @AdminRightsCheck 
 async def skip(cli, message: Message, _, chat_id): 

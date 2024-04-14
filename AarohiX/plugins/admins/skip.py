@@ -10,8 +10,7 @@ from strings.filters import command
 from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminRequired
 from pyrogram.errors import ChatWriteForbidden 
 from config import BANNED_USERS 
-from AarohiX.utils.database import get_loop 
-from AarohiX.utils.decorators import AdminRightsCheck 
+from AarohiX.utils.database import get_loop  
 from AarohiX.utils.inline import close_markup, stream_markup 
 from AarohiX.utils.stream.autoclear import auto_clean 
 from AarohiX.utils.thumbnails import get_thumb 
@@ -47,8 +46,7 @@ async def must_join_channel(cli, msg: Message):
  
 @app.on_message( 
     command(["سكب", "التالي", "تخطي", "cnext"]) & ~BANNED_USERS 
-) 
-@AdminRightsCheck 
+)  
 async def skip(cli, message: Message, _, chat_id): 
     if not Muntazer: 
         return 

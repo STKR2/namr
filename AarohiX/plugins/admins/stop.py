@@ -6,8 +6,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import Muntazer 
 from pyrogram.errors import ChatAdminRequired, UserNotParticipant, ChatWriteForbidden 
 from AarohiX.core.call import Dil
-from AarohiX.utils.database import set_loop 
-from AarohiX.utils.decorators import AdminRightsCheck 
+from AarohiX.utils.database import set_loop  
 from AarohiX.utils.inline import close_markup 
  
 @app.on_message(filters.incoming & filters.private, group=-1) 
@@ -38,8 +37,7 @@ async def must_join_channel(cli, msg: Message):
         print(f"I'm not admin in the MUST_JOIN chat {Muntazer}!") 
  
 # الكود لإيقاف الموسيقى 
-@app.on_message(command(["ايقاف", "اوكف", "كافي", "انهاء"]) ) 
-@AdminRightsCheck 
+@app.on_message(command(["ايقاف", "اوكف", "كافي", "انهاء"]) )  
 async def stop_music(cli, message: Message, _, chat_id): 
     if not len(message.command) == 1: 
         return 

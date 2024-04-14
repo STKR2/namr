@@ -9,7 +9,8 @@ from AarohiX.misc import db
 from strings.filters import command
 from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminRequired
 from pyrogram.errors import ChatWriteForbidden 
-from config import BANNED_USERS 
+from config import BANNED_USERS
+from AarohiX.utils.decorators import AdminRightsCheck
 from AarohiX.utils.database import get_loop  
 from AarohiX.utils.inline import close_markup, stream_markup 
 from AarohiX.utils.stream.autoclear import auto_clean 

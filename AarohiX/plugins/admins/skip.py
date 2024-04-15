@@ -68,12 +68,10 @@ async def skip(cli, message: Message, _, chat_id):
         ) 
         return 
 
-    if not len(message.command) < 2: 
+if not len(message.command) < 2: 
         # يمكنك ترك المراقبة هنا
         pass
     else:
-        # يمكنك ترك المراقبة هنا
-        pass
         loop = await get_loop(chat_id) 
         if loop != 0: 
             return await message.reply_text(_["admin_8"]) 

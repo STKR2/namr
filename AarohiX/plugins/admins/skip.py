@@ -111,7 +111,6 @@ async def skip(cli, message: Message):
         else:
             return await message.reply_text(_["admin_9"])
     else:
-        check = db.get()
         popped = None
         try:
             popped = check.pop(0)

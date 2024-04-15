@@ -45,30 +45,30 @@ async def must_join_channel(cli, msg: Message):
         print(f"I'm not admin in the MUST_JOIN chat {Muntazer}!") 
  
  
-@app.on_message( 
-    command(["سكب", "التالي", "تخطي", "cnext"]) & ~BANNED_USERS 
-)  
-async def skip(cli, message: Message, _, chat_id): 
-    if not Muntazer: 
-        return 
-    try: 
-        await cli.get_chat_member(Muntazer, message.from_user.id) 
-    except UserNotParticipant: 
-        if Muntazer.isalpha(): 
-            link = "https://t.me/" + Muntazer 
-        else: 
-            chat_info = await cli.get_chat(Muntazer) 
-            link = chat_info.invite_link 
-        await message.reply( 
-            f"~︙عزيزي {message.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.", 
-            disable_web_page_preview=True, 
-            reply_markup=InlineKeyboardMarkup([ 
-                [InlineKeyboardButton("< Source Plus >", url=link)] 
-            ]) 
-        ) 
+@app.on_message(
+    command(["سكب", "التالي", "تخطي", "cnext"]) & ~BANNED_USERS
+)
+async def skip(cli, message: Message, _, chat_id):
+    if not Muntazer:
         return
-     
-if not len(message.command) < 2:
+    try:
+        await cli.get_chat_member(Muntazer, message.from_user.id)
+    except UserNotParticipant:
+        if Muntazer.isalpha():
+            link = "https://t.me/" + Muntazer
+        else:
+            chat_info = await cli.get_chat(Muntazer)
+            link = chat_info.invite_link
+        await message.reply(
+            f"~︙عزيزي {message.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.",
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("< Source Plus >", url=link)]
+            ])
+        )
+        return
+
+    if not len(message.command) < 2:
         loop = await get_loop(chat_id)
         if loop != 0:
             return await message.reply_text(_["admin_8"])

@@ -39,13 +39,15 @@ async def must_join_channel(cli, msg: Message):
  
 # الكود لإيقاف الموسيقى  
 @app.on_message(command(["ايقاف", "اوكف", "كافي", "انهاء"])) 
-async def stop_music(cli, message: Message, _, chat_id): 
+async def stop_music(cli, message: Message): 
     if not len(message.command) == 1: 
         return 
     # التحقق من الاشتراك في القناة 
     await must_join_channel(cli, message) 
-    await Dil.stop_stream(chat_id) 
-    await set_loop(chat_id, 0) 
+    # إيقاف الموسيقى
+    await Dil.stop_stream(message.chat.id) 
+    await set_loop(message.chat.id, 0) 
+    # الرد على الرسالة بنجاح الإيقاف
     await message.reply_text( 
         _["admin_5"].format(message.from_user.mention), reply_markup=close_markup(_) 
     )

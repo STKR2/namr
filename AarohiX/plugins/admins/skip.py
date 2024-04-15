@@ -48,7 +48,7 @@ async def must_join_channel(cli, msg: Message):
 @app.on_message(
     command(["سكب", "التالي", "تخطي", "cnext"]) & ~BANNED_USERS
 )
-async def skip(cli, message: Message, _, chat_id):
+async def skip(cli, message: Message, chat_id):
     if not Muntazer:
         return
     try:

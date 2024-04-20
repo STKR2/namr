@@ -48,6 +48,8 @@ async def must_join_channel(cli, msg: Message):
     command(["سكب", "التالي", "تخطي", "cnext"]) 
 )
 async def skip(cli, message: Message):
+    chat_id = message.chat.id  # تعيين قيمة chat_id بناءً على message.chat.id
+    
     if not Muntazer:
         return
     try:

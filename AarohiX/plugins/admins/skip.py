@@ -1,6 +1,6 @@
 from pyrogram import filters 
 from pyrogram.types import InlineKeyboardMarkup, Message, InlineKeyboardButton 
-from pyrogram.errors import UserNotParticipant, ChatWriteForbidden 
+from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminRequired 
  
 import config 
 from AarohiX import YouTube, app 
@@ -9,8 +9,9 @@ from AarohiX.misc import db
 from strings.filters import command
 from pyrogram.errors import UserNotParticipant, ChatWriteForbidden, ChatAdminRequired
 from pyrogram.errors import ChatWriteForbidden 
-from AarohiX.utils.decorators import AdminRightsCheck
-from AarohiX.utils.database import get_loop  
+from config import BANNED_USERS 
+from AarohiX.utils.database import get_loop 
+from AarohiX.utils.decorators import AdminRightsCheck 
 from AarohiX.utils.inline import close_markup, stream_markup 
 from AarohiX.utils.stream.autoclear import auto_clean 
 from AarohiX.utils.thumbnails import get_thumb 
@@ -44,35 +45,34 @@ async def must_join_channel(cli, msg: Message):
         print(f"I'm not admin in the MUST_JOIN chat {Muntazer}!") 
  
  
-@app.on_message(
-    command(["سكب", "التالي", "تخطي", "cnext"]) 
-)
-async def skip(cli, message: Message):
-    chat_id = message.chat.id  # تعيين قيمة chat_id بناءً على message.chat.id
-    
-    if not Muntazer:
-        return
-    try:
-        await cli.get_chat_member(Muntazer, message.from_user.id)
-    except UserNotParticipant:
-        if Muntazer.isalpha():
-            link = "https://t.me/" + Muntazer
-        else:
-            chat_info = await cli.get_chat(Muntazer)
-            link = chat_info.invite_link
-        await message.reply(
-            f"~︙عزيزي {message.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.",
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("< Source Plus >", url=link)]
-            ])
-        )
-        return
-
-    if not len(message.command) < 2:
-        loop = await get_loop(chat_id)
-        if loop != 0:
-            return await message.reply_text(_["admin_8"])
+@app.on_message( 
+    command(["سكب", "التالي", "تخطي", "cnext"]) & ~BANNED_USERS 
+) 
+@AdminRightsCheck 
+async def skip(cli, message: Message, _, chat_id): 
+    if not Muntazer: 
+        return 
+    try: 
+        await cli.get_chat_member(Muntazer, message.from_user.id) 
+    except UserNotParticipant: 
+        if Muntazer.isalpha(): 
+            link = "https://t.me/" + Muntazer 
+        else: 
+            chat_info = await cli.get_chat(Muntazer) 
+            link = chat_info.invite_link 
+        await message.reply( 
+            f"~︙عزيزي {message.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.", 
+            disable_web_page_preview=True, 
+            reply_markup=InlineKeyboardMarkup([ 
+                [InlineKeyboardButton("< Source Plus >", url=link)] 
+            ]) 
+        ) 
+        return 
+ 
+    if not len(message.command) < 2: 
+        loop = await get_loop(chat_id) 
+        if loop != 0: 
+            return await message.reply_text(_["admin_8"]) 
         state = message.text.split(None, 1)[1].strip()
         if state.isnumeric():
             state = int(state)
@@ -112,6 +112,7 @@ async def skip(cli, message: Message):
         else:
             return await message.reply_text(_["admin_9"])
     else:
+        check = db.get(chat_id)
         popped = None
         try:
             popped = check.pop(0)

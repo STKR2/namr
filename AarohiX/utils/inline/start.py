@@ -45,9 +45,9 @@ def private_panel(_, OWNER_ID: Union[bool, int] = None):
             InlineKeyboardButton(text="‹ تنصيب بوت › ", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
         ],
         [
-            InlineKeyboardButton(text=_["S_B_7"], user_id=OWNER_ID),
-            InlineKeyboardButton(text=_["S_B_6"], url=f"https://t.me/{OWNER_ID}"),
-        ] if OWNER_ID else [],
+            InlineKeyboardButton(text=_["S_B_7"], user_id=OWNER_ID) if OWNER_ID else None,
+            InlineKeyboardButton(text=_["S_B_6"], url=f"https://t.me/{OWNER_ID}") if OWNER_ID else None,
+        ],
         [InlineKeyboardButton(text=_["ST_B_6"], callback_data="LG")],
     ]
     return buttons

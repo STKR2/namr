@@ -21,10 +21,10 @@ def start_panel(_):
         ],
         [
             InlineKeyboardButton(
-                text="< المطور >", url=f"tg://openmessage?user_id={OWNER_ID}"
+                text="< المطور >", url=f"tg://user?id={OWNER_ID}"
             ),
             InlineKeyboardButton(
-                text="< تنصيب بوت >", url=f"tg://openmessage?user_id={OWNER_ID}"
+                text="< تنصيب بوت >", url=f"tg://user?id={OWNER_ID}"
             ),
         ],
     ]
@@ -46,10 +46,10 @@ def private_panel(_, OWNER_ID: Union[bool, int] = None):
         ],
         [
             InlineKeyboardButton(
-                text="< المطور >", url=f"tg://openmessage?user_id={OWNER_ID}"
+                text="< المطور >", url=f"tg://user?id={OWNER_ID}"
             ),
             InlineKeyboardButton(
-                text="< تنصيب بوت >", url=f"tg://openmessage?user_id={OWNER_ID}"
+                text="< تنصيب بوت >", url=f"tg://user?id={OWNER_ID}"
             ),
         ],
         [

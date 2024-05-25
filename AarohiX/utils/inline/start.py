@@ -24,7 +24,7 @@ def start_panel(_):
             InlineKeyboardButton(text="‹ تنصيب بوت › ", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
         ],
     ]
-    return buttons
+    return [button for button in buttons if button]
 
 
 def private_panel(_, OWNER_ID: Union[bool, int] = None):
@@ -50,7 +50,7 @@ def private_panel(_, OWNER_ID: Union[bool, int] = None):
         ],
         [InlineKeyboardButton(text=_["ST_B_6"], callback_data="LG")],
     ]
-    return buttons
+    return [button for button in buttons if button]
 
 
 def alive_panel(_):
@@ -62,4 +62,4 @@ def alive_panel(_):
             InlineKeyboardButton(text=_["S_B_3"], url=f"{SUPPORT_CHAT}"),
         ],
     ]
-    return buttons
+    return [button for button in buttons if button]

@@ -16,7 +16,7 @@ from AarohiX import app
 
 from typing import Union
 from pyrogram.types import InlineKeyboardButton
-from config import GITHUB_REPO, SUPPORT_CHANNEL, SUPPORT_CHAT
+from config import SUPPORT_CHANNEL, SUPPORT_CHAT
 
 
 def start_pannel(_):
@@ -74,18 +74,18 @@ def private_panel(_, BOT_USERNAME, OWNER_ID: Union[bool, int] = None):
             )
         ]
     )
-    if GITHUB_REPO and OWNER_ID:
+    if SUPPORT_CHANNEL and OWNER_ID:
         buttons.append(
             [
                 InlineKeyboardButton(text=_["S_B_7"], user_id=OWNER_ID),
-                InlineKeyboardButton(text=_["S_B_6"], url=f"{GITHUB_REPO}"),
+                InlineKeyboardButton(text=_["S_B_6"], url=f"{SUPPORT_CHANNEL}"),
             ]
         )
     else:
-        if GITHUB_REPO:
+        if SUPPORT_CHANNEL:
             buttons.append(
                 [
-                    InlineKeyboardButton(text=_["S_B_6"], url=f"{GITHUB_REPO}"),
+                    InlineKeyboardButton(text=_["S_B_6"], url=f"{SUPPORT_CHANNEL}"),
                 ]
             )
         if OWNER_ID:

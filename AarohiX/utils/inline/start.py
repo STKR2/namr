@@ -1,9 +1,10 @@
 from typing import Union
+from AarohiX.utils.inline import first_page, private_panel, start_pannel, alive_panel
 from pyrogram.types import InlineKeyboardButton
 from config import OWNER_ID, SUPPORT_CHANNEL, SUPPORT_CHAT, BOT_USERNAME
 from AarohiX import app
 
-def start_pannel(_):
+def start_panel(_):
     buttons = [
         [
             InlineKeyboardButton(

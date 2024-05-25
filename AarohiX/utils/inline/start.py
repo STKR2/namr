@@ -20,12 +20,8 @@ def start_panel(_):
             InlineKeyboardButton(text=_["S_B_3"], url=f"{SUPPORT_CHAT}"),
         ],
         [
-            InlineKeyboardButton(
-                text="< المطور >", url=f"tg://user?id={OWNER_ID}"
-            ),
-            InlineKeyboardButton(
-                text="< تنصيب بوت >", url=f"tg://user?id={OWNER_ID}"
-            ),
+            InlineKeyboardButton(text="< المطور >", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
+            InlineKeyboardButton(text="< تنصيب بوت >", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
         ],
     ]
     return buttons
@@ -45,12 +41,8 @@ def private_panel(_, OWNER_ID: Union[bool, int] = None):
             )
         ],
         [
-            InlineKeyboardButton(
-                text="< المطور >", url=f"tg://user?id={OWNER_ID}"
-            ),
-            InlineKeyboardButton(
-                text="< تنصيب بوت >", url=f"tg://user?id={OWNER_ID}"
-            ),
+            InlineKeyboardButton(text="< المطور >", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
+            InlineKeyboardButton(text="< تنصيب بوت >", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
         ],
         [
             InlineKeyboardButton(text=_["S_B_7"], user_id=OWNER_ID),

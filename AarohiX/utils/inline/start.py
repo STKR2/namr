@@ -56,7 +56,7 @@ def private_panel(_, OWNER_ID: Union[bool, int] = None):
         [
             InlineKeyboardButton(
                 text=_["S_B_5"],
-                url=f"https://t.me/{app.username}?startgroup=true",
+                url=f"https://t.me/{SUPPORT_CHAT}?startgroup=true",
             )
         ]
     )

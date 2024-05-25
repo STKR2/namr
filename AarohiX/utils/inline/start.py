@@ -22,10 +22,10 @@ def start_panel(_):
         ],
         [
             InlineKeyboardButton(
-                text="‹ المطور ›", url=f"{OWNER_ID}"
+                text="‹ المطور ›", user_id=OWNER_ID)
             ),
             InlineKeyboardButton(
-                text="‹ تنصيب بوت ›", url=f"{OWNER_ID}"
+                text="‹ تنصيب بوت ›", user_id=OWNER_ID)
             ),
         ],
     ]
@@ -47,10 +47,10 @@ def private_panel(_, OWNER_ID: Union[bool, int] = None):
         ],
         [
             InlineKeyboardButton(
-                text="‹ المطور ›", url=f"{OWNER_ID}"
+                text="‹ المطور ›", user_id=OWNER_ID)
             ),
             InlineKeyboardButton(
-                text="‹ تنصيب بوت ›", url=f"{OWNER_ID}"
+                text="‹ تنصيب بوت ›", user_id=OWNER_ID)
             ),
         ],
         [

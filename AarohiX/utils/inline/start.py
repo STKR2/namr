@@ -70,7 +70,7 @@ buttons = [[InlineKeyboardButton(text=_["S_B_8"], callback_data="settings_back_h
             )
         ]
     )
-        if SUPPORT_CHANNEL and OWNER:
+        if SUPPORT_CHANNEL and OWNER_ID:
         buttons.append(
             [
                 InlineKeyboardButton(text=_["S_B_7"], user_id=OWNER_ID),

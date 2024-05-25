@@ -1,3 +1,4 @@
+
 from AarohiX import app
 from typing import Union
 from pyrogram.types import InlineKeyboardButton
@@ -20,11 +21,15 @@ def start_panel(_):
             InlineKeyboardButton(text=_["S_B_3"], url=f"{SUPPORT_CHAT}"),
         ],
         [
-            InlineKeyboardButton(text="‹ المطور › ", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
-            InlineKeyboardButton(text="‹ تنصيب بوت › ", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
+            InlineKeyboardButton(
+                text="‹ المطور ›", url=f"{OWNER_ID}"
+            ),
+            InlineKeyboardButton(
+                text="‹ تنصيب بوت ›", url=f"{OWNER_ID}"
+            ),
         ],
     ]
-    return [button for button in buttons if button]
+    return buttons
 
 
 def private_panel(_, OWNER_ID: Union[bool, int] = None):
@@ -41,16 +46,20 @@ def private_panel(_, OWNER_ID: Union[bool, int] = None):
             )
         ],
         [
-            InlineKeyboardButton(text="‹ المطور › ", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
-            InlineKeyboardButton(text="‹ تنصيب بوت › ", url=f"tg://user?id={OWNER_ID}") if OWNER_ID else None,
+            InlineKeyboardButton(
+                text="‹ المطور ›", url=f"{OWNER_ID}"
+            ),
+            InlineKeyboardButton(
+                text="‹ تنصيب بوت ›", url=f"{OWNER_ID}"
+            ),
         ],
         [
-            InlineKeyboardButton(text=_["S_B_7"], user_id=OWNER_ID) if OWNER_ID else None,
-            InlineKeyboardButton(text=_["S_B_6"], url=f"https://t.me/{OWNER_ID}") if OWNER_ID else None,
-        ],
+            InlineKeyboardButton(text=_["S_B_7"], user_id=OWNER_ID),
+            InlineKeyboardButton(text=_["S_B_6"], url=f"https://t.me/{OWNER_ID}"),
+        ] if OWNER_ID else [],
         [InlineKeyboardButton(text=_["ST_B_6"], callback_data="LG")],
     ]
-    return [button for button in buttons if button]
+    return buttons
 
 
 def alive_panel(_):
@@ -62,4 +71,4 @@ def alive_panel(_):
             InlineKeyboardButton(text=_["S_B_3"], url=f"{SUPPORT_CHAT}"),
         ],
     ]
-    return [button for button in buttons if button]
+    return buttons

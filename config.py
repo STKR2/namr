@@ -15,7 +15,7 @@ BOT_TOKEN = getenv("BOT_TOKEN", "")
 
 MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "bot")
 
-Muntazer = getenv("muntazer", "ouesz")
+Muntazer = getenv("muntazer", "BB_1R")
 
 MONGO_DB_URI = getenv("MONGO_DB_URI", "")
 
@@ -46,8 +46,8 @@ GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/ouesz")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/ouesz")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/BB_1R")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/BB_1R")
 
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
 AUTO_SUGGESTION_MODE = getenv("AUTO_SUGGESTION_MODE", "True")
